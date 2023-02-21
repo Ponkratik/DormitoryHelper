@@ -30,7 +30,7 @@ class InvoiceController {
     }
 
     @PostMapping("/add/batch")
-    fun login(@RequestBody @Validated invoiceBatch: List<InvoiceBatchRequest>): ResponseEntity<List<String>> {
+    fun loadInvoices(@RequestBody @Validated invoiceBatch: List<InvoiceBatchRequest>): ResponseEntity<List<String>> {
         val result = invoiceService.loadPayments(invoiceBatch)
         return ResponseEntity.ok(result)
     }
