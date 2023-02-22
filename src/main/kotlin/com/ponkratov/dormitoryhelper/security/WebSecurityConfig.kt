@@ -32,7 +32,7 @@ class WebSecurityConfig : WebSecurityConfigurerAdapter() {
     override fun configure(http: HttpSecurity) {
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
             .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-            .antMatchers("/api/auth/**").permitAll()
+            .antMatchers("/api/**").permitAll()
             //.antMatchers("/api/attachment/**").permitAll()
             //.antMatchers("/api/**").permitAll()
             .anyRequest().authenticated()
