@@ -11,6 +11,7 @@ class Task(
     @Basic @Column(name = "description") val description: String = "",
     @Basic @Column(name = "publication_date") val publicationDate: Date = Date(0),
     @Basic @Column(name = "end_date") val endDate: Date = Date(0),
+    @Basic @Column(name = "finished") val finished: Boolean = false,
     @ManyToOne @JoinColumn(
         name = "published_id",
         referencedColumnName = "id",

@@ -55,6 +55,16 @@ class TaskService {
             ))
         }
 
-        return "Task picked successfully"
+        return "Task added successfully"
+    }
+
+    fun finishTask(taskId: Long): String {
+        val result = taskRepository.finishTask(taskId)
+
+        return if (result > 0) {
+            "Task picked successfully"
+        } else {
+            "Error while picking task"
+        }
     }
 }
