@@ -62,9 +62,9 @@ class TaskService {
         val result = taskRepository.finishTask(taskId)
 
         return if (result > 0) {
-            "Task picked successfully"
+            "Task finished successfully"
         } else {
-            "Error while picking task"
+            "Error while finishing task"
         }
     }
 }

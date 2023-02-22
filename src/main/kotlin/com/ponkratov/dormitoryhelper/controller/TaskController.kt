@@ -48,7 +48,7 @@ class TaskController {
     }
 
     @PostMapping("/finish/{taskId}")
-    fun pickTask(@PathVariable taskId: Long): ResponseEntity<String> {
+    fun finishTask(@PathVariable taskId: Long): ResponseEntity<String> {
         val result = taskService.finishTask(taskId)
         return ResponseEntity.ok(result)
     }
