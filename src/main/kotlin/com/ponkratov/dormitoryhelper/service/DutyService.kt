@@ -1,10 +1,13 @@
 package com.ponkratov.dormitoryhelper.service
 
+import com.ponkratov.dormitoryhelper.dto.request.SpawnDutiesRequest
 import com.ponkratov.dormitoryhelper.model.Duty
 import com.ponkratov.dormitoryhelper.repository.DutyRepository
 import com.ponkratov.dormitoryhelper.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
+import java.time.YearMonth
+import java.util.*
 
 @Service
 class DutyService {
@@ -73,6 +76,45 @@ class DutyService {
             "Error while adding duties"
         } */
         return "Duties added successfully"
+    }
+
+    fun spawnDuties(spawnDutiesRequest: SpawnDutiesRequest): Boolean {
+        try {
+            with(spawnDutiesRequest) {
+                val lastDay = YearMonth.of(year, month).lengthOfMonth()
+                for (day in 1..lastDay) {
+                    val start = Calendar.getInstance()
+                    start.set(year, month - 1, day, 8, 0)
+                    val finish = Calendar.getInstance()
+                    finish.set(year, month - 1, day, 16, 0)
+
+                    dutyRepository.save(
+                        Duty(
+                            dormitory = dormitory,
+                            floor = floor,
+                            startDate = start.time,
+                            endDate = finish.time
+                        )
+                    )
+
+                    start.set(year, month - 1, day, 16, 0)
+                    finish.set(year, month - 1, day, 0, 0)
+                    finish.add(Calendar.DATE, 1)
+
+                    dutyRepository.save(
+                        Duty(
+                            dormitory = dormitory,
+                            floor = floor,
+                            startDate = start.time,
+                            endDate = finish.time
+                        )
+                    )
+                }
+            }
+            return true
+        } catch (_: Exception) {
+            return false
+        }
     }
 
 }

@@ -9,4 +9,6 @@ interface RoleRepository : JpaRepository<Role, Long> {
 
     fun findAllByName(name: String): Set<Role>
     fun findByName(name: String): Role
+
+    fun findRoleById(id: Long): Role
 }

@@ -1,5 +1,6 @@
 package com.ponkratov.dormitoryhelper.dto.request
 
+import org.springframework.format.annotation.DateTimeFormat
 import java.util.Date
 
 data class TaskAddRequest(

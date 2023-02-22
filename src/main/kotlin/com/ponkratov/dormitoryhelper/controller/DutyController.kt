@@ -1,5 +1,6 @@
 package com.ponkratov.dormitoryhelper.controller
 
+import com.ponkratov.dormitoryhelper.dto.request.SpawnDutiesRequest
 import com.ponkratov.dormitoryhelper.model.Duty
 import com.ponkratov.dormitoryhelper.service.DutyService
 import org.springframework.beans.factory.annotation.Autowired
@@ -54,6 +55,11 @@ class DutyController {
     @GetMapping("/get/{id}/quantity")
     fun getDutiesQuantityByUserId(@PathVariable id: Long): ResponseEntity<Int> {
         val result = dutyService.getDutyQuantityByUserId(id)
+        return ResponseEntity.ok(result)
+    }
+
+    fun spawnDuties(@RequestBody spawnDutiesRequest: SpawnDutiesRequest): ResponseEntity<Boolean> {
+        val result = dutyService.spawnDuties(spawnDutiesRequest)
         return ResponseEntity.ok(result)
     }
 }

@@ -1,6 +1,7 @@
 package com.ponkratov.dormitoryhelper.controller
 
 import com.ponkratov.dormitoryhelper.dto.request.InvoiceBatchRequest
+import com.ponkratov.dormitoryhelper.dto.request.SpawnInvoicesRequest
 import com.ponkratov.dormitoryhelper.model.Invoice
 import com.ponkratov.dormitoryhelper.service.InvoiceService
 import org.springframework.beans.factory.annotation.Autowired
@@ -32,6 +33,12 @@ class InvoiceController {
     @PostMapping("/add/batch")
     fun loadInvoices(@RequestBody @Validated invoiceBatch: List<InvoiceBatchRequest>): ResponseEntity<List<String>> {
         val result = invoiceService.loadPayments(invoiceBatch)
+        return ResponseEntity.ok(result)
+    }
+
+    @PostMapping("/spawn")
+    fun spawnMonthlyInvoices(@RequestBody spawnInvoicesRequest: SpawnInvoicesRequest): ResponseEntity<Boolean> {
+        val result = invoiceService.spawnPayments(spawnInvoicesRequest)
         return ResponseEntity.ok(result)
     }
 }
