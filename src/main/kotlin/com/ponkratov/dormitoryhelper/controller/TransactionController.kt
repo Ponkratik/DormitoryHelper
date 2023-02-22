@@ -36,7 +36,7 @@ class TransactionController {
     }
 
     @PostMapping("/add")
-    fun login(@RequestBody @Validated transactionAddRequest: TransactionAddRequest): ResponseEntity<String> {
+    fun addTransaction(@RequestBody @Validated transactionAddRequest: TransactionAddRequest): ResponseEntity<String> {
         val result = transactionService.addTransaction(transactionAddRequest)
         return ResponseEntity.ok(result)
     }
