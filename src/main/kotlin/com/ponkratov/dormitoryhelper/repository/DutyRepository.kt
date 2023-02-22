@@ -6,12 +6,18 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
+import java.util.*
 import javax.transaction.Transactional
 
 @Repository
 interface DutyRepository : JpaRepository<Duty, Long> {
 
-    fun getAllByDormitoryAndFloor(dormitory: Long, floor: Long): List<Duty>
+    fun getAllByDormitoryAndFloorAndStartDateAfterAndStartDateBefore(
+        dormitory: Long,
+        floor: Long,
+        startDate: Date,
+        startDate2: Date
+    ): List<Duty>
 
     @Modifying
     @Transactional

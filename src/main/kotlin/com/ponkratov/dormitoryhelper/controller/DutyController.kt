@@ -28,9 +28,14 @@ class DutyController {
         return ResponseEntity.ok(result)
     }
 
-    @GetMapping("/get/dormitory/{id}/{floor}")
-    fun getActiveTasksByDormitory(@PathVariable id: Long, @PathVariable floor: Long): ResponseEntity<List<Duty>> {
-        val result = dutyService.getDutiesByDormitoryAndFloor(id, floor)
+    @GetMapping("/get/dormitory/{dormitory}/{floor}/{month}/{year}")
+    fun getActiveTasksByDormitory(
+        @PathVariable dormitory: Long,
+        @PathVariable floor: Long,
+        @PathVariable month: Int,
+        @PathVariable year: Int
+    ): ResponseEntity<List<Duty>> {
+        val result = dutyService.getDutiesByDormitoryAndFloor(dormitory, floor, month, year)
         return ResponseEntity.ok(result)
     }
 

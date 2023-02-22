@@ -53,8 +53,20 @@ class DutyService {
         }
     }
 
-    fun getDutiesByDormitoryAndFloor(dormitoryNumber: Long, floor: Long): List<Duty> {
-        return dutyRepository.getAllByDormitoryAndFloor(dormitoryNumber, floor)
+    fun getDutiesByDormitoryAndFloor(dormitoryNumber: Long, floor: Long, month: Int, year: Int): List<Duty> {
+        val lastDay = YearMonth.of(year, month).lengthOfMonth()
+
+        val monthStart = Calendar.getInstance()
+        monthStart.set(year, month - 1, 1, 0, 0)
+        val monthEnd = Calendar.getInstance()
+        monthEnd.set(year, month - 1, lastDay, 23, 59)
+
+        return dutyRepository.getAllByDormitoryAndFloorAndStartDateAfterAndStartDateBefore(
+            dormitory = dormitoryNumber,
+            floor = floor,
+            startDate = monthStart.time,
+            startDate2 = monthEnd.time
+        )
     }
 
     fun addDuties(dormitoryNumber: Long, month: Int): String {
