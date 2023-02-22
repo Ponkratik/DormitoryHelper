@@ -58,6 +58,7 @@ class DutyController {
         return ResponseEntity.ok(result)
     }
 
+    @PostMapping("/spawn")
     fun spawnDuties(@RequestBody spawnDutiesRequest: SpawnDutiesRequest): ResponseEntity<Boolean> {
         val result = dutyService.spawnDuties(spawnDutiesRequest)
         return ResponseEntity.ok(result)
