@@ -15,7 +15,7 @@ interface TaskRepository: JpaRepository<Task, Long> {
     fun getActiveTasksByDormitory(dormitoryNumber: Long): List<Task>
 
     @Modifying
-    @Query("update Task t set t.userByUserPicked=:user where t.id=:id")
+    @Query("update Task t set t.userByUserPicked=:user where t.id=:taskId")
     fun pickTask(taskId: Long, user: User): Long
 
     fun getAllByUserByUserPicked_Id(userByUserPicked_id: Long): List<Task>
