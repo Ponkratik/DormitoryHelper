@@ -10,6 +10,6 @@ interface TransactionRepository : JpaRepository<Transaction, Long> {
 
     fun getAllByUserByUserTo_Id(userByUserTo_id: Long): List<Transaction>
 
-    @Query("select sum (t.reward) from Transaction t where t.userByUserTo.id=:userId group by t.userByUserTo.id")
+    @Query("select COALESCE(sum(t.reward), 0) from Transaction t where t.userByUserTo.id=:userId")
     fun getOptQuantityByUserId(userId: Long): Int
 }

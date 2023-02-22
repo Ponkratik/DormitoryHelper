@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
+import javax.transaction.Transactional
 
 @Repository
 interface TaskRepository: JpaRepository<Task, Long> {
@@ -15,10 +16,12 @@ interface TaskRepository: JpaRepository<Task, Long> {
     fun getActiveTasksByDormitory(dormitoryNumber: Long): List<Task>
 
     @Modifying
+    @Transactional
     @Query("update Task t set t.userByUserPicked=:user where t.id=:taskId")
-    fun pickTask(taskId: Long, user: User): Long
+    fun pickTask(taskId: Long, user: User): Int
 
     @Modifying
+    @Transactional
     @Query("update Task t set t.finished=true where t.id=:taskId")
     fun finishTask(taskId: Long): Long
 

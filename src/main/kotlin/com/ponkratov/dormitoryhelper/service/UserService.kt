@@ -1,8 +1,10 @@
 package com.ponkratov.dormitoryhelper.service
 
+import com.ponkratov.dormitoryhelper.dto.response.UserProfileResponse
 import com.ponkratov.dormitoryhelper.model.RoleEnum
 import com.ponkratov.dormitoryhelper.model.User
 import com.ponkratov.dormitoryhelper.repository.RoleRepository
+import com.ponkratov.dormitoryhelper.repository.TransactionRepository
 import com.ponkratov.dormitoryhelper.repository.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -21,6 +23,14 @@ class UserService {
     @Autowired
     private val _roleRepository: RoleRepository? = null
     private val roleRepository get() = requireNotNull(_roleRepository)
+
+    @Autowired
+    private var _transactionService: TransactionService? = null
+    private val transactionService get() = requireNotNull(_transactionService)
+
+    @Autowired
+    private var _dutyService: DutyService? = null
+    private val dutyService get() = requireNotNull(_dutyService)
 
     fun registerUser(user: User): String {
 
@@ -42,5 +52,13 @@ class UserService {
 
     fun getUsers(): List<User> {
         return userRepository.findAll()
+    }
+
+    fun getProfileInfo(id: Long): UserProfileResponse {
+        return UserProfileResponse(
+            user = userRepository.getUserById(id),
+            dutiesCount = dutyService.getDutyQuantityByUserId(id),
+            optCount = transactionService.getOptQuantityByUserId(id)
+        )
     }
 }

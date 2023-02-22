@@ -5,6 +5,7 @@ import com.ponkratov.dormitoryhelper.dto.request.LoginRequest
 import com.ponkratov.dormitoryhelper.dto.request.RegisterRequest
 import com.ponkratov.dormitoryhelper.dto.response.JwtResponse
 import com.ponkratov.dormitoryhelper.dto.response.ObjectResponse
+import com.ponkratov.dormitoryhelper.dto.response.UserProfileResponse
 import com.ponkratov.dormitoryhelper.model.User
 import com.ponkratov.dormitoryhelper.security.jwt.JwtUtils
 import com.ponkratov.dormitoryhelper.security.service.UserDetailsImpl
@@ -79,6 +80,12 @@ class UserController {
     @GetMapping("/get/{id}")
     fun getUserResponse(@PathVariable id: Long): ResponseEntity<User> {
         val result = userService.getUserById(id)
+        return ResponseEntity.ok(result)
+    }
+
+    @GetMapping("/get/{id}/full")
+    fun getProfileInfo(@PathVariable id: Long): ResponseEntity<UserProfileResponse> {
+        val result = userService.getProfileInfo(id)
         return ResponseEntity.ok(result)
     }
 }
