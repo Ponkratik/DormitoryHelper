@@ -96,9 +96,9 @@ class DutyService {
                 val lastDay = YearMonth.of(year, month).lengthOfMonth()
                 for (day in 1..lastDay) {
                     val start = Calendar.getInstance()
-                    start.set(year, month - 1, day, 8, 0)
+                    start.set(year, month - 1, day, 8, 0, 0)
                     val finish = Calendar.getInstance()
-                    finish.set(year, month - 1, day, 16, 0)
+                    finish.set(year, month - 1, day, 16, 0, 0)
 
                     dutyRepository.save(
                         Duty(
@@ -109,8 +109,8 @@ class DutyService {
                         )
                     )
 
-                    start.set(year, month - 1, day, 16, 0)
-                    finish.set(year, month - 1, day, 0, 0)
+                    start.set(year, month - 1, day, 16, 0, 0)
+                    finish.set(year, month - 1, day, 0, 0, 0)
                     finish.add(Calendar.DATE, 1)
 
                     dutyRepository.save(
